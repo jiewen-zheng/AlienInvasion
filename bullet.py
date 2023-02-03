@@ -16,10 +16,11 @@ class Bullet(Sprite):
         self.rect = pygame.Rect(0, 0, self.settings.bullet_width,
                                 self.settings.bullet_height)
 
-        self.rect.x = ai_game.ship.rect.midtop[0] - 3 -\
-            self.settings.bullet_width / 2  # 水平位置修正
-
-        self.rect.y = ai_game.ship.rect.y
+        # self.rect.x = ai_game.ship.rect.midtop[0] - \
+        #     self.settings.bullet_width / 2  # 水平位置修正
+        # self.rect.y = ai_game.ship.rect.y
+        # 子弹初始位置
+        self.rect.midbottom = ai_game.ship.rect.midtop
 
         # 存储用小数表示的子弹位置。
         self.y = float(self.rect.y)
