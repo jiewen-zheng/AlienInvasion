@@ -1,13 +1,13 @@
 import pygame
+from pygame.sprite import Sprite
 
-from hp import ShipHp
 
-
-class Ship:
+class Ship(Sprite):
     """管理飞船的类"""
 
     def __init__(self, ai_game):
         """初始化飞船并设置其初始位置"""
+        super().__init__()
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
 
@@ -19,11 +19,6 @@ class Ship:
 
         # 设置项
         self.settings = ai_game.settings
-
-        # 设置生命值
-        self.hp = self.settings.ship_limit
-        self.hps = pygame.sprite.Group()
-        self._create_hp()
 
         # 飞船属性x存储小数，依据像素矩形的相对值
         self.x = float(self.rect.x)
@@ -37,7 +32,7 @@ class Ship:
 
     def update(self):
         # 获取飞船速度
-        speed = self.settings.get_ship_speed()
+        speed = self.settings.ship_speed
         # 更新飞船对象的x值
         if self.moving_right and self.rect.right < self.screen_rect.right:  # self.rect.right 返回飞船外接矩形右边缘的x 坐标
             self.x += speed
@@ -58,20 +53,20 @@ class Ship:
         self.x = float(self.rect.x)
         self.y = float(self.rect.y)
 
-    def _create_hp(self):
-        """创建生命值"""
-        hp = ShipHp(self)
-        hp_width, hp_height = hp.rect.size
-
-        for number in range(self.hp):
-            new_hp = ShipHp(self)
-            new_hp.rect.x = new_hp.rect.x + (hp_width + hp_width//2) * number
-            self.hps.add(new_hp)
-
-    def blithp(self):
-        """绘制飞船生命值"""
-        self.hps.draw(self.screen)
-
     def blitme(self):
         """在指定位置绘制飞船"""
         self.screen.blit(self.image, self.rect)
+
+
+class ShipHp(Sprite):
+    """描述飞船hp的类"""
+
+    def __init__(self, ship):
+        super().__init__()
+        self.screen = ship.screen
+        self.screen_rect = ship.screen_rect
+
+        # 加载飞船hp图像
+        self.image = pygame.image.load('images/hp.png')
+        self.rect = self.image.get_rect()
+        self.rect.bottomleft = self.screen_rect.bottomleft

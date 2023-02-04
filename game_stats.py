@@ -11,4 +11,7 @@ class GameStats:
 
     def reset_stats(self):
         """初始化在游戏运行期间可能变化的统计信息"""
-        self.ships_left = self.settings.ship_limit
+        self.ship_hp = self.settings.ship_limit
+        self.score = 0  # 游戏分数
+        self.level = 1  # 游戏等级
+        self.settings.initialize_dynamic_settings()

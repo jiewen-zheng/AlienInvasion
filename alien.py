@@ -15,9 +15,9 @@ class Alien(Sprite):
         self.settings = ai_game.settings
 
         # 加载外星人图像并设置rect属性
-        alien_type = randint(1, 4)
-        self.hp = self.settings.alien_hp * alien_type  # 按外星人类型计算生命值
-        image = f"images/alien_{alien_type}.png"
+        self.type = randint(1, 4)
+        self.hp = self.settings.alien_hp * self.type  # 按外星人类型计算生命值
+        image = f"images/alien_{self.type}.png"
         # print(image)
         self.image = pygame.image.load(str(image))
 
