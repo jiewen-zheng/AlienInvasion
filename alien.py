@@ -20,7 +20,6 @@ class Alien(Sprite):
         image = f"images/alien_{self.type}.png"
         # print(image)
         self.image = pygame.image.load(str(image))
-
         # self.image = pygame.image.load('images/alien_4.png')
         self.rect = self.image.get_rect()  # 获取图像rect属性
 

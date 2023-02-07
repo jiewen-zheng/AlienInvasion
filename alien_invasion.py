@@ -188,15 +188,16 @@ class AlienInvasion:
             # 处理一颗子弹碰到多个外星人的情况
             for aliens in collisions.values():
                 for number in range(len(aliens)):
-                    if aliens[number].hp > 1:
-                        aliens[number].hp -= 1
-                    else:
+                    # 击中外星人时其生命值按子弹伤害减少
+                    aliens[number].hp -= self.settings.bullet_harm
+                    if aliens[number].hp <= 0:
                         # 删除hp为0的外星人
                         self.aliens.remove(aliens[number])
                         # 按外星人类型计算得分
                         self.stats.score += self.settings.alien_points * \
                             aliens[number].type
-                        self.score.prep_score()  # 重新渲染数字
+                        # 重新渲染得分
+                        self.score.prep_score()
 
         if not self.aliens:
             # 射杀所有外星人后重新生成一批

@@ -12,7 +12,7 @@ class Settings:
         self.initialize_dynamic_settings()
 
         # 飞船设置
-        self.ship_limit = 4  # 飞船数量限制
+        self.ship_limit = 4  # 飞船生命上限
 
         # 子弹设置
         self.bullet_width = 3
@@ -34,14 +34,17 @@ class Settings:
         """初始化随游戏进行而变化的设置"""
         self.ship_speed = 1.5  # 飞船飞行速度
         self.bullet_speed = 1.2  # 子弹飞行速度
+        self.bullet_harm = 1  # 子弹伤害
         self.bullets_allowed = 10   # 屏幕允许存在子弹数量
         self.alien_speed = 1  # 外星人移动速度
         self.alien_points = 50  # 射杀外星人分数
 
     def increase_speed(self):
-        """提高速度设置"""
+        """提高游戏速度设置"""
         self.ship_speed *= self.speedup_scale
         self.bullet_speed *= self.speedup_scale
+        self.bullet_harm = self.bullet_harm + \
+            int(self.bullet_harm * self.speedup_scale)
         self.bullets_allowed = self.bullets_allowed + \
             int(self.bullets_allowed * self.speedup_scale)
         self.alien_speed *= self.speedup_scale
